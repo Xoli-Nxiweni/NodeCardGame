@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Guessing Game</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <div class="MyGameBoard">
+        <h1>Card Guessing Game</h1>
+        <div class="gameStatus">
+            <button id="reset-button">Reset Game</button>
+            <div id="scoreboard">Score: 0</div>
+            <div id="timer">Time: 05:00</div>
+        </div>
+        <div id="gameBlock" class="game-grid"></div>
+
+        <!-- Popup Background -->
+        <div id="popupBackground" class="hidden"></div>
+        
+        <!-- Popup Overlay -->
+        <div id="popupOverlay" class="hidden">
+            <div id="gameResultTitle">Game Over!</div>
+            <div>Your Score: <span id="finalScore">0</span></div>
+            <button id="close-popup-button">Close</button>
+        </div>
+    </div>
+
+    <!-- Link to the JS file -->
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

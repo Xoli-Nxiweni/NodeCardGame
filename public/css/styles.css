@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap');
+
+/* General Reset and Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling with Background */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: green;
+    background-size: cover;
+}
+
+/* Game Board Styling */
+.MyGameBoard {
+    backdrop-filter: blur(15px);
+    width: 45%;
+    padding: 8px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* Game Status Bar */
+.gameStatus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1% 5%;
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Game Grid Layout */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Styles */
+.card {
+    background: url('https://shapeprocessautomation.com/wp-content/uploads/2020/03/SPA-shape-technologies-group-delta-grey.png.webp') no-repeat center center;
+    background-size: cover;
+    background-color: #000000;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.card:hover {
+    transform: scale(1.005);
+}
+
+.card.matched {
+    background: #4caf50;
+    transform: rotateY(180deg);
+    z-index: 1;
+}
+
+/* Reset Button Styles */
+#reset-button {
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reset-button:hover {
+    background-color: #ff4500;
+}
+
+/* Popup Overlay Styles */
+#popupOverlay {
+    display: none;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 400px;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    backdrop-filter: blur(15px);
+    transition: opacity 0.3s ease; 
+    opacity: 0; 
+}
+
+#popupOverlay.visible {
+    display: block; 
+    opacity: 1; 
+}
+
+/* Overlay Background Styles */
+#popupBackground {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 999;
+}
+
+#popupBackground.visible {
+    display: block; 
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        width: 80px;
+        height: 120px;
+    }
+}
+
