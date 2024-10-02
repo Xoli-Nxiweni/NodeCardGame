@@ -22,6 +22,12 @@ To get a local copy of this project up and running, follow these steps:
 - [Node.js](https://nodejs.org/) (version 12 or higher)
 - [npm](https://www.npmjs.com/) (Node package manager, usually comes with Node.js)
 
+## Figma Link
+
+```
+https://www.figma.com/design/5oN1YlNzEY5Wkvg52xGTg0/Untitled?node-id=6-2&t=SqbJp79w3ggqk4dY-1
+```
+
 ### Installation
 
 1. Clone the repository:
