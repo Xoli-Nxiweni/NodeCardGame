@@ -7,6 +7,10 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+::selection{
+    background: #ff0000;
+    color: #ffffff;
+}
 
 /* Body Styling with Background */
 body {
@@ -16,17 +20,18 @@ body {
     justify-content: center;
     height: 100vh;
     text-align: center;
-    background: green;
+    background: url('https://static.vecteezy.com/system/resources/previews/000/109/230/non_2x/free-vector-casino-royale-background.jpg');
     background-size: cover;
 }
 
 /* Game Board Styling */
 .MyGameBoard {
-    backdrop-filter: blur(15px);
-    width: 45%;
-    padding: 8px;
+    backdrop-filter: blur(20px);
+    width: 50%;
+    padding: 10px;
     border-radius: 10px;
-    color: #fff;
+    color: #272727;
+    box-shadow: -4px 4px 10px 4px #0000005b;
 }
 
 /* Game Status Bar */
@@ -35,13 +40,43 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1% 5%;
+    font-size: 1.25em;
 }
 
 /* Headings */
 h1 {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    color: #272727;
+    /* margin-bottom: 20px; */
+}
+.startGame{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #ffffff62;
+    backdrop-filter: blur(25px);
+    padding: 45px;
+    border-radius: 15px;
+    box-shadow: -4px 4px 10px 4px #0000005b;
+}
+.startGame h1{
+    color: #000000;
+}
+.startGame button,
+#close-popup-button{
+    background: red;
+    border: 0;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    border-radius: 15px;
+    text-transform: capitalize;
     color: #ffffff;
-    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+.startGame button:hover,
+#close-popup-button:hover{
+    transform: scale(1.05);
 }
 
 /* Game Grid Layout */
@@ -51,51 +86,63 @@ h1 {
     gap: 10px;
     padding: 10px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.659);
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
 }
 
 /* Card Styles */
 .card {
-    background: url('https://shapeprocessautomation.com/wp-content/uploads/2020/03/SPA-shape-technologies-group-delta-grey.png.webp') no-repeat center center;
+    /* background: url('https://shapeprocessautomation.com/wp-content/uploads/2020/03/SPA-shape-technologies-group-delta-grey.png.webp') no-repeat center center; */
     background-size: cover;
-    background-color: #000000;
+    background-color: #272727;
     backface-visibility: hidden;
     border-radius: 8px;
     width: 100%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.2s linear, background-color 0.25s linear;
     cursor: pointer;
     flex-shrink: 0;
+    color: #fff;
+}
+
+.card i{
+    font-size: 2.2em;
 }
 
 .card:hover {
     transform: scale(1.005);
+    background: #ff0000;
 }
 
 .card.matched {
     background: #4caf50;
-    transform: rotateY(180deg);
+    /* transform: rotateY(180deg); */
     z-index: 1;
+    opacity: 0.6; /* Visual feedback for matched cards */
+    pointer-events: none; /* Disable click events */
 }
+
+
 
 /* Reset Button Styles */
 #reset-button {
     padding: 10px 20px;
-    background-color: #ff6347;
-    color: white;
+    background-color: #ff0000;
+    color: #ffffff;
     border: none;
+    display: flex;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
-#reset-button:hover {
-    background-color: #ff4500;
+#reset-button i{
+    font-size: 1.25em;
+    color: #fff;
 }
 
 /* Popup Overlay Styles */
@@ -141,14 +188,21 @@ h1 {
 }
 
 /* Responsive Design */
-@media screen and (max-width: 768px) {
+@media(max-width: 767px) {
+    .MyGameBoard{
+        width: 100%;
+    }
     .game-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 
     .card {
-        width: 80px;
-        height: 120px;
+        width: 100%;
+        height: 50px;
+        flex-shrink: 0;
+    }
+    .card i{
+        font-size: 1.2em;
     }
 }
 

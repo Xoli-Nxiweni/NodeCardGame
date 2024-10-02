@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the elements
     const popupOverlay = document.getElementById('popupOverlay');
     const popupBackground = document.getElementById('popupBackground');
-    // const openPopupButton = document.getElementById('open-popup-button');
     const closePopupButton = document.getElementById('close-popup-button');
     const finalScore = document.getElementById('finalScore');
     const timerElement = document.getElementById("timer");
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let flippedCards = [];
     let matchedPairs = 0;
     let score = 0;
-    let timer = 300; // 5 minutes
+    let timer = 300;
     let gameOver = false;
 
     // Function to show the popup
@@ -33,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Event listeners for popup buttons
-    // openPopupButton.addEventListener('click', hidePopup);
     closePopupButton.addEventListener('click', hidePopup);
     popupBackground.addEventListener('click', hidePopup);
 
@@ -51,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Reset game function
     const resetGame = () => {
+        window.location.reload();
         flippedCards = [];
         matchedPairs = 0;
         score = 0;
@@ -60,25 +59,26 @@ document.addEventListener("DOMContentLoaded", () => {
         timerElement.innerText = `Time: ${formatTime(timer)}`;
         hidePopup(); // Hide popup overlay and background
 
-        // Clear all cards
+        // Clear all cards and remove "matched" class
         document.querySelectorAll(".card").forEach((card) => {
             card.innerHTML = getCardSVG();
+            card.classList.remove('matched');
         });
     };
 
     // Reset game button event listener
     resetButton.addEventListener("click", resetGame);
 
-    // Fetch the fruits data from the server
-    fetch("/api/fruits")
+    // Fetch the shapes data from the server
+    fetch("/api/shapes")
         .then((response) => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         })
-        .then((fruits) => {
-            if (Array.isArray(fruits)) {
-                // Duplicate and shuffle fruits
-                const shuffledFruits = [...fruits, ...fruits].sort(() => Math.random() - 0.5);
+        .then((shapes) => {
+            if (Array.isArray(shapes)) {
+                // Duplicate and shuffle shapes
+                const shuffledShapes = [...shapes, ...shapes].sort(() => Math.random() - 0.5);
 
                 // Create a card element
                 const createCard = (index) => {
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     card.classList.add("card");
                     card.dataset.index = index;
                     card.innerHTML = getCardSVG(); // Use your SVG code here
-                    card.addEventListener("click", () => chooseCard(card, shuffledFruits[index]));
+                    card.addEventListener("click", () => chooseCard(card, shuffledShapes[index]));
                     return card;
                 };
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const getCardSVG = () => `<!-- Your SVG code here -->`;
 
                 // Create cards
-                shuffledFruits.forEach((fruit, index) => {
+                shuffledShapes.forEach((shape, index) => {
                     const card = createCard(index);
                     gameBlock.appendChild(card);
                 });
@@ -102,28 +102,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 let disableClick = false;
 
                 // Handle card choice
-                const chooseCard = (card, fruit) => {
-                    // Prevent clicks if disabled or if the clicked card is already flipped
-                    if (disableClick || flippedCards.includes(card)) return;
+                const chooseCard = (card, shape) => {
+                    // Prevent clicks if disabled, if the card is already flipped, or if the card is already matched
+                    if (disableClick || flippedCards.includes(card) || card.classList.contains('matched')) return;
 
                     flippedCards.push(card);
-                    card.innerHTML = `<span style="font-size: 40px;">${fruit.emoji}</span>`; // Show fruit emoji
+                    card.innerHTML = `<i class="${shape.icon}"></i>`; // Show shape icon
 
                     // Check for a match only if two cards are flipped
                     if (flippedCards.length === 2) {
-                        checkMatch(fruit);
+                        checkMatch(shape);
                     }
                 };
 
-                const checkMatch = (fruit) => {
+                // Check for match
+                const checkMatch = (shape) => {
                     disableClick = true; // Disable clicking during the check
-                    const firstFruit = shuffledFruits[flippedCards[0].dataset.index];
+                    const firstShape = shuffledShapes[flippedCards[0].dataset.index];
 
                     // Check if the two flipped cards match
-                    if (firstFruit.emoji === fruit.emoji) {
+                    if (firstShape.icon === shape.icon) {
                         matchedPairs++;
                         score += 10; // Increase score for a match
                         updateScore(); // Update the score display
+
+                        // Mark both cards as matched (lock them)
+                        flippedCards.forEach(card => {
+                            card.classList.add('matched'); // Add class to indicate matched (lock the card)
+                        });
+
                         flippedCards = []; // Clear flipped cards as they are a match
                         checkGameWon(); // Check if the game has been won
 
@@ -143,11 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 };
 
-                
-
                 // Check if the game is won
                 const checkGameWon = () => {
-                    if (matchedPairs === fruits.length) {
+                    if (matchedPairs === shapes.length) {
                         gameOver = true;
                         showPopup(true);
                     }
@@ -167,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch((error) => {
-            console.error("Error fetching fruits:", error);
-            alert("Failed to load fruits. Please try again later.");
+            console.error("Error fetching shapes:", error);
+            alert("Failed to load shapes. Please try again later.");
         });
 });

@@ -53,7 +53,7 @@ To get a local copy of this project up and running, follow these steps:
 2. Open your web browser and go to:
 
    ```
-   http://localhost:3000
+   http://localhost:8080
    ```
 
 ## Usage
